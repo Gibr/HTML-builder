@@ -9,7 +9,7 @@ const styleSrcPath = path.join(__dirname, 'styles');
 function copyDir(originalUrl, copyUrl) {
   const delPromise =
     fsPromises.rm ?
-      fsPromises.rm(copyUrl, { recursive: true }) :
+      fsPromises.rm(copyUrl, { recursive: true, force: true }) :
       fsPromises.rmdir(copyUrl, { recursive: true });
 
   delPromise.then(() => {
@@ -34,7 +34,7 @@ function copyDir(originalUrl, copyUrl) {
 
 const delPromise =
   fsPromises.rm ?
-    fsPromises.rm(distPath, { recursive: true }) :
+    fsPromises.rm(distPath, { recursive: true, force: true }) :
     fsPromises.rmdir(distPath, { recursive: true });
 delPromise.then(() => {
   fsPromises.mkdir(distPath);

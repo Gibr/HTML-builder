@@ -6,10 +6,10 @@ function copyDir() {
   const originalUrl = path.join(__dirname, 'files');
   const copyUrl = path.join(__dirname, 'files-copy');
   // fsPromises.rm() available with Node v.14 and upper 
-  const delPromise = 
-    fsPromises.rm ? 
-    fsPromises.rm(copyUrl, { recursive: true }) : 
-    fsPromises.rmdir(copyUrl, { recursive: true });
+  const delPromise =
+    fsPromises.rm ?
+      fsPromises.rm(copyUrl, { recursive: true, force: true }) :
+      fsPromises.rmdir(copyUrl, { recursive: true });
 
   delPromise.then(
     () => {
@@ -17,11 +17,11 @@ function copyDir() {
     }
   ).then(
     () => {
-      return fsPromises.readdir(originalUrl, {withFileTypes: true});
+      return fsPromises.readdir(originalUrl, { withFileTypes: true });
     }
   ).then(
     (files) => {
-      const copyPromises =[];
+      const copyPromises = [];
       files.forEach(file => {
         if (file.isFile()) {
           const srcPath = path.join(originalUrl, file.name);
